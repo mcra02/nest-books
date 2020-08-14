@@ -2,6 +2,8 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { morganMiddleware } from './morgan.config';
 
+import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+
 import * as chalk from 'chalk';
 import * as figlet from 'figlet';
 import * as dotenv from 'dotenv';
@@ -12,6 +14,15 @@ const port = process.env.PORT;
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+  const options = new DocumentBuilder()
+    .setTitle('Books API')
+    .setDescription('The bookd API description')
+    .setVersion('1.0')
+    .build();
+  const document = SwaggerModule.createDocument(app, options);
+  SwaggerModule.setup('api/swagger', app, document);
+
   app.use(morganMiddleware);
   await app.listen(port);
 
@@ -30,7 +41,7 @@ async function bootstrap() {
     console.log(chalk.bold.red(data));
     console.log(
       chalk.yellow('    🎯 🐢 REST API Server is running on ') +
-        chalk.italic.green(`http://0.0.0.0:${port}/ 🐢 🎯 `)
+        chalk.italic.green(`http://0.0.0.0:${port}/api/swagger 🐢 🎯 `)
     );
     console.log('');
     console.log(
