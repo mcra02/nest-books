@@ -1,8 +1,9 @@
 import {
-  Entity, Column, PrimaryGeneratedColumn
+  Entity, Column, PrimaryGeneratedColumn, OneToMany
 } from 'typeorm';
 import { Length, IsNotEmpty } from 'class-validator';
 import { ApiResponseProperty } from '@nestjs/swagger';
+import { Book } from 'src/book/models/book.model';
 
 @Entity()
 export class Author {
@@ -28,4 +29,8 @@ export class Author {
     @Length(3, 12, { message: 'The name must be at least 3 but not longer than 12 characters' })
     @IsNotEmpty({ message: 'The country is required' })
     country: string
+
+    @OneToMany(() => Book, book => book.author)
+    @ApiResponseProperty({ type: () =>  [Book] })
+    books: Book[]
 }

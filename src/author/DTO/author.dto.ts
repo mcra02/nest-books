@@ -20,4 +20,4 @@ export class CreateAuthorDTO {
 
 export class UpdateAuthorDTO extends CreateAuthorDTO {}
 
-export class PartialUpdateAuthorDTO extends PartialType(CreateAuthorDTO){}
+export class PartialUpdateAuthorDTO extends PartialType(UpdateAuthorDTO){}
