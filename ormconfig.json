@@ -1,0 +1,15 @@
+{
+  "type": "mysql",
+  "host": "localhost",
+  "port": 3306,
+  "username": "root",
+  "password": "admin",
+  "database": "books",
+  "entities": ["dist/**/*.model.js"],
+  "synchronize": true,
+  "logging": true,
+  "migrations": ["dist/migrations/**/*.js"],
+  "cli": {
+    "migrationsDir": "migrations"
+  }
+}
