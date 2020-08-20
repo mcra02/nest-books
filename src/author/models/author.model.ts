@@ -31,6 +31,6 @@ export class Author {
     country: string
 
     @OneToMany(() => Book, book => book.author)
-    @ApiResponseProperty({ type: () =>  [Book] })
+    // @ApiResponseProperty({ type: () =>  [Book] })
     books: Book[]
 }

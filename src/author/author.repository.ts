@@ -7,22 +7,44 @@ import {
 @EntityRepository(Author)
 export class AuthorRepository extends Repository<Author> {
     findAuthors? = async(): Promise<Author[]> => {
-      return await this.find();
+      try {
+        return await this.find();
+      } catch (error) {
+        throw new Error(error);
+      }
     }
 
     findOneAuthor? = async(id: number): Promise<Author> => {
-      return await this.findOne(id);
+      try {
+        return await this.findOne(id);
+      } catch (error) {
+        throw new Error(error);
+      }
     }
 
     createAuthor? = async(data:CreateAuthorDTO): Promise<Author> => {
-      return await this.save({ ...data });
+      try {
+        return await this.save({ ...data });
+      } catch (error) {
+        throw new Error(error);
+      }
     }
 
-    updateAuthor? = async (id:number, data:PartialUpdateAuthorDTO|UpdateAuthorDTO) => {
-      return await this.update(id, { ...data });
+    updateAuthor? = async (id:number, data:PartialUpdateAuthorDTO|UpdateAuthorDTO): Promise<boolean> => {
+      try {
+        await this.update(id, { ...data });
+        return true;
+      } catch (error) {
+        throw new Error(error);
+      }
     }
 
-    deleteAuthor? = async (id:number) => {
-      return await this.delete(id);
+    deleteAuthor? = async (id:number): Promise<boolean> => {
+      try {
+        await this.delete(id);
+        return true;
+      } catch (error) {
+        throw new Error(error);
+      }
     }
 }

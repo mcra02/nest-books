@@ -1,6 +1,6 @@
 import { ApiProperty, PartialType } from '@nestjs/swagger';
 import {
-  Length, IsNotEmpty, IsNumber
+  Length, IsNotEmpty, IsNumber, Min, Max
 } from 'class-validator';
 
 
@@ -26,6 +26,9 @@ export class CreateBookDTO {
 
     @ApiProperty({
       required: true,
+      type: Number,
+      minimum: 0,
+      maximum: 150,
       description: 'Price of Book'
     })
     @IsNumber({}, { message: 'Please enter a valid number' })
@@ -33,9 +36,17 @@ export class CreateBookDTO {
 
     @ApiProperty({
       required: true,
+      type: Number,
+      minimum: 5,
+      maximum: 50,
       description: 'Quantity of Book'
     })
-    @IsNumber({}, { message: 'Please enter a valid number' })
+    @IsNumber(
+      { maxDecimalPlaces: 2 },
+      { message: 'Please enter a valid number' }
+    )
+    @Min(5)
+    @Max(50)
     quantity: number
 
     @ApiProperty({

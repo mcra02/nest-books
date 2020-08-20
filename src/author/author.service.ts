@@ -12,25 +12,45 @@ export class AuthorService {
   ){}
 
   async find():Promise<Author[]>{
-    return await this._authorRepository.findAuthors();
+    try {
+      return await this._authorRepository.findAuthors();
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 
   async findOne(id:number):Promise<Author> {
-    return await this._authorRepository.findOneAuthor(id);
+    try {
+      return await this._authorRepository.findOneAuthor(id);
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 
   async create(data:CreateAuthorDTO): Promise<Author>{
-    return await this._authorRepository.createAuthor(data);
+    try {
+      return await this._authorRepository.createAuthor(data);
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 
   async update(id:number, data:PartialUpdateAuthorDTO|UpdateAuthorDTO): Promise<Author>{
-    await this._authorRepository.updateAuthor(id, data);
-    return await this.findOne(id);
+    try {
+      await this._authorRepository.updateAuthor(id, data);
+      return await this.findOne(id);
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 
   async delete(id:number): Promise<Author> {
-    const author = await this.findOne(id);
-    await this._authorRepository.deleteAuthor(id);
-    return author;
+    try {
+      const author = await this.findOne(id);
+      await this._authorRepository.deleteAuthor(id);
+      return author;
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 }

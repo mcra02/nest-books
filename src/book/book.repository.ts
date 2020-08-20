@@ -7,22 +7,44 @@ import {
 @EntityRepository(Book)
 export class BookRepository extends Repository<Book> {
     findBooks? = async(): Promise<Book[]> => {
-      return await this.find();
+      try {
+        return await this.find();
+      } catch (error) {
+        throw new Error(error);
+      }
     }
 
     findOneBook? = async(id: number): Promise<Book> => {
-      return await this.findOne(id);
+      try {
+        return await this.findOne(id);
+      } catch (error) {
+        throw new Error(error);
+      }
     }
 
     createBook? = async(data:CreateBookDTO): Promise<Book> => {
-      return await this.save({ ...data });
+      try {
+        return await this.save({ ...data });
+      } catch (error) {
+        throw new Error(error);
+      }
     }
 
-    updateBook? = async (id:number, data:PartialUpdateBookDTO|UpdateBookDTO) => {
-      return await this.update(id, { ...data });
+    updateBook? = async (id:number, data:PartialUpdateBookDTO|UpdateBookDTO): Promise<boolean> => {
+      try {
+        await this.update(id, { ...data });
+        return true;
+      } catch (error) {
+        throw new Error(error);
+      }
     }
 
-    deleteBook? = async (id:number) => {
-      return await this.delete(id);
+    deleteBook? = async (id:number): Promise<boolean> => {
+      try {
+        await this.delete(id);
+        return true;
+      } catch (error) {
+        throw new Error(error);
+      }
     }
 }

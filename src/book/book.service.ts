@@ -12,25 +12,46 @@ export class BookService {
   ){}
 
   async find():Promise<Book[]>{
-    return await this._bookRepository.findBooks();
+    try {
+      return await this._bookRepository.findBooks();
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 
   async findOne(id:number):Promise<Book> {
-    return await this._bookRepository.findOneBook(id);
+    try {
+      return await this._bookRepository.findOneBook(id);
+
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 
   async create(data:CreateBookDTO): Promise<Book>{
-    return await this._bookRepository.createBook(data);
+    try {
+      return await this._bookRepository.createBook(data);
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 
   async update(id:number, data:PartialUpdateBookDTO|UpdateBookDTO): Promise<Book>{
-    await this._bookRepository.updateBook(id, data);
-    return await this.findOne(id);
+    try {
+      await this._bookRepository.updateBook(id, data);
+      return await this.findOne(id);
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 
   async delete(id:number): Promise<Book> {
-    const Book = await this.findOne(id);
-    await this._bookRepository.deleteBook(id);
-    return Book;
+    try {
+      const Book = await this.findOne(id);
+      await this._bookRepository.deleteBook(id);
+      return Book;
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 }

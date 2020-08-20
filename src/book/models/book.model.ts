@@ -38,6 +38,6 @@ export class Book {
 
     @JoinColumn()
     @ManyToOne(() => Author, author => author.books, { onDelete: 'CASCADE' })
-    @ApiResponseProperty({ type: () => Author })
+    // @ApiResponseProperty({ type: () => Author })
     author: Author
 }
