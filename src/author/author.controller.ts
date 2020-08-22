@@ -1,16 +1,18 @@
 import {
-  Controller, Body, Post, Put, Param, Get, Patch, Delete
+  Controller, Body, Post, Put, Param, Get, Patch, Delete, UseGuards
 } from '@nestjs/common';
 import { AuthorService } from './author.service';
 import {
   CreateAuthorDTO, PartialUpdateAuthorDTO, UpdateAuthorDTO
 } from './DTO/author.dto';
 import {
-  ApiTags,  ApiCreatedResponse, ApiAcceptedResponse
+  ApiTags,  ApiCreatedResponse, ApiAcceptedResponse, ApiBearerAuth
 } from '@nestjs/swagger';
 import { Author } from './models/author.model';
+import { AuthJWT } from 'src/auth/decorators/auth.user.decorator';
 
 @ApiTags('Author')
+@ApiBearerAuth()
 @Controller('api/author')
 export class AuthorController {
   constructor(
@@ -18,6 +20,7 @@ export class AuthorController {
   ){}
 
   @Post()
+  @UseGuards(AuthJWT)
   @ApiCreatedResponse({
     description: 'The record has successfully created.',
     type: Author
@@ -27,6 +30,7 @@ export class AuthorController {
   }
 
   @Put(':id')
+  @UseGuards(AuthJWT)
   @ApiAcceptedResponse({
     description: 'The record has successfully updated.',
     type: Author
@@ -36,6 +40,7 @@ export class AuthorController {
   }
 
   @Patch(':id')
+  @UseGuards(AuthJWT)
   @ApiAcceptedResponse({
     description: 'The record has successfully updated.',
     type: Author
@@ -45,6 +50,7 @@ export class AuthorController {
   }
 
   @Delete(':id')
+  @UseGuards(AuthJWT)
   @ApiAcceptedResponse({
     description: 'The record has successfully updated.',
     type: Author
@@ -54,6 +60,7 @@ export class AuthorController {
   }
 
   @Get()
+  @UseGuards(AuthJWT)
   @ApiAcceptedResponse({
     description: 'The record has successfully find all.',
     type: [Author]
@@ -63,6 +70,7 @@ export class AuthorController {
   }
 
   @Get(':id')
+  @UseGuards(AuthJWT)
   @ApiAcceptedResponse({
     description: 'The record has successfully find all.',
     type: Author

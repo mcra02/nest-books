@@ -1,16 +1,18 @@
 import {
-  Controller, Post, Body, Put, Param, Patch, Delete, Get
+  Controller, Post, Body, Put, Param, Patch, Delete, Get, UseGuards
 } from '@nestjs/common';
 import {
-  ApiTags, ApiCreatedResponse, ApiAcceptedResponse
+  ApiTags, ApiCreatedResponse, ApiAcceptedResponse, ApiBearerAuth
 } from '@nestjs/swagger';
 import { BookService } from './book.service';
 import { Book } from './models/book.model';
 import {
   CreateBookDTO, UpdateBookDTO, PartialUpdateBookDTO
 } from './DTO/book.dto';
+import { AuthJWT } from 'src/auth/decorators/auth.user.decorator';
 
 @ApiTags('Book')
+@ApiBearerAuth()
 @Controller('api/book')
 export class BookController {
   constructor(
@@ -18,6 +20,7 @@ export class BookController {
   ){}
 
   @Post()
+  @UseGuards(AuthJWT)
   @ApiCreatedResponse({
     description: 'The record has successfully created.',
     type: Book
@@ -27,6 +30,7 @@ export class BookController {
   }
 
   @Put(':id')
+  @UseGuards(AuthJWT)
   @ApiAcceptedResponse({
     description: 'The record has successfully updated.',
     type: Book
@@ -36,6 +40,7 @@ export class BookController {
   }
 
   @Patch(':id')
+  @UseGuards(AuthJWT)
   @ApiAcceptedResponse({
     description: 'The record has successfully updated.',
     type: Book
@@ -45,6 +50,7 @@ export class BookController {
   }
 
   @Delete(':id')
+  @UseGuards(AuthJWT)
   @ApiAcceptedResponse({
     description: 'The record has successfully updated.',
     type: Book
@@ -54,6 +60,7 @@ export class BookController {
   }
 
   @Get()
+  @UseGuards(AuthJWT)
   @ApiAcceptedResponse({
     description: 'The record has successfully find all.',
     type: [Book]
@@ -63,6 +70,7 @@ export class BookController {
   }
 
   @Get(':id')
+  @UseGuards(AuthJWT)
   @ApiAcceptedResponse({
     description: 'The record has successfully find all.',
     type: Book

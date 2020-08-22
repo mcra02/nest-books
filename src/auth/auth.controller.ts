@@ -2,7 +2,9 @@ import {
   Controller, Body, Post, Get, UseGuards
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { ApiTags, ApiCreatedResponse } from '@nestjs/swagger';
+import {
+  ApiTags, ApiCreatedResponse, ApiBearerAuth
+} from '@nestjs/swagger';
 import { SessionPayload } from './models/session.payload';
 import { SignUpDTO } from './DTO/signup.dto';
 import { SignInDTO } from './DTO/signin.dto';
@@ -36,6 +38,11 @@ export class AuthController {
 
   @Get('me')
   @UseGuards(AuthJWT)
+  @ApiBearerAuth()
+  @ApiCreatedResponse({
+    description: 'Request me was successfully',
+    type: SessionPayload
+  })
   async me(
     @CurrentUser('username') username:string
   ): Promise<SessionPayload>{
