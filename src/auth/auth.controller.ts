@@ -3,7 +3,7 @@ import {
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import {
-  ApiTags, ApiCreatedResponse, ApiBearerAuth
+  ApiTags, ApiCreatedResponse, ApiBearerAuth, ApiOperation, ApiHeader
 } from '@nestjs/swagger';
 import { SessionPayload } from './models/session.payload';
 import { SignUpDTO } from './DTO/signup.dto';
@@ -23,6 +23,10 @@ export class AuthController {
     description: 'Login was successfully',
     type: SessionPayload
   })
+  @ApiOperation({
+    summary: 'Register user',
+    description: 'Register user operation'
+  })
   async signup(@Body() data: SignUpDTO): Promise<SessionPayload> {
     return this.authService.signUp(data);
   }
@@ -31,6 +35,10 @@ export class AuthController {
   @ApiCreatedResponse({
     description: 'Registration was successfully',
     type: SessionPayload
+  })
+  @ApiOperation({
+    summary: 'Login user',
+    description: 'Login user operation'
   })
   async signin(@Body() data: SignInDTO): Promise<SessionPayload> {
     return this.authService.signIn(data);
@@ -42,6 +50,10 @@ export class AuthController {
   @ApiCreatedResponse({
     description: 'Request me was successfully',
     type: SessionPayload
+  })
+  @ApiOperation({
+    summary: 'Refresh token',
+    description: 'This can only be done by the logged in user.'
   })
   async me(
     @CurrentUser('username') username:string
