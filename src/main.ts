@@ -24,6 +24,7 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('api/swagger', app, document);
 
+  app.enableCors();
   app.use(morganMiddleware);
   await app.listen(port);
 
