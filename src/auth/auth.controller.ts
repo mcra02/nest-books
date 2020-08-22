@@ -1,11 +1,13 @@
 import {
-  Controller, Body, Post
+  Controller, Body, Post, Get, UseGuards
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { ApiTags, ApiCreatedResponse } from '@nestjs/swagger';
 import { SessionPayload } from './models/session.payload';
 import { SignUpDTO } from './DTO/signup.dto';
 import { SignInDTO } from './DTO/signin.dto';
+import { AuthJWT } from './decorators/auth.user.decorator';
+import { CurrentUser } from './decorators/current.user.decorator';
 
 @ApiTags('Auth')
 @Controller('api/auth')
@@ -30,5 +32,13 @@ export class AuthController {
   })
   async signin(@Body() data: SignInDTO): Promise<SessionPayload> {
     return this.authService.signIn(data);
+  }
+
+  @Get('me')
+  @UseGuards(AuthJWT)
+  async me(
+    @CurrentUser('username') username:string
+  ): Promise<SessionPayload>{
+    return this.authService.me(username);
   }
 }

@@ -1,10 +1,10 @@
 import {
-  Entity, Column, PrimaryColumn, BeforeInsert
+  Entity, Column, PrimaryColumn
 } from 'typeorm';
 import { ApiResponseProperty } from '@nestjs/swagger';
 import { Length, IsNotEmpty } from 'class-validator';
 import { IsUniq } from '@join-com/typeorm-class-validator-is-uniq';
-import * as bcrypt from 'bcryptjs';
+
 @Entity()
 export class User {
   @PrimaryColumn('varchar', {
@@ -35,18 +35,4 @@ export class User {
   })
   @IsNotEmpty({ message: 'The password is required' })
   password:string
-
-  @BeforeInsert()
-  hashPassword? = async (): Promise<any> => {
-    this.password = await bcrypt.hash(this.password, 10);
-  }
-
-  @BeforeInsert()
-  propertiesLowerCase? = async (): Promise<void> => {
-    this.email = this.email.toLowerCase();
-  }
-
-  comparePasswrod? = async (reqPassword:string):Promise<boolean> =>{
-    return await bcrypt.compare(reqPassword, this.password);
-  }
 }
