@@ -1,9 +1,9 @@
 {
   "type": "mysql",
-  "host": "localhost",
+  "host": "server.yarems.com",
   "port": 3306,
-  "username": "root",
-  "password": "admin",
+  "username": "maicol",
+  "password": "iamzatu1",
   "database": "books",
   "entities": ["dist/**/*.model.js"],
   "synchronize": true,
