@@ -3,7 +3,7 @@ import {
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import {
-  ApiTags, ApiCreatedResponse, ApiBearerAuth, ApiOperation, ApiHeader
+  ApiTags, ApiCreatedResponse, ApiBearerAuth, ApiOperation
 } from '@nestjs/swagger';
 import { SessionPayload } from './models/session.payload';
 import { SignUpDTO } from './DTO/signup.dto';

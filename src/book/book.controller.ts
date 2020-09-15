@@ -10,13 +10,15 @@ import {
   CreateBookDTO, UpdateBookDTO, PartialUpdateBookDTO
 } from './DTO/book.dto';
 import { AuthJWT } from 'src/auth/decorators/auth.user.decorator';
+import { AppGateway } from 'src/app.gateway';
 
 @ApiTags('Book')
 @ApiBearerAuth()
 @Controller('api/book')
 export class BookController {
   constructor(
-        private readonly bookService:BookService
+        private readonly bookService:BookService,
+        private readonly wss: AppGateway
   ){}
 
   @Post()
@@ -30,7 +32,9 @@ export class BookController {
     description: 'This can only be done by the logged in user.'
   })
   async create(@Body() data: CreateBookDTO): Promise<Book>{
-    return await this.bookService.create(data);
+    const res: Book = await this.bookService.create(data);
+    this.wss.emitActionData(process.env.WS_CHANNEL_BOOK, process.env.WS_CREATED, res);
+    return res;
   }
 
   @Put(':id')
@@ -44,7 +48,9 @@ export class BookController {
     description: 'This can only be done by the logged in user.'
   })
   async update(@Param('id') id:number, @Body() data: UpdateBookDTO): Promise<Book>{
-    return await this.bookService.update(id, data);
+    const res: Book = await this.bookService.update(id, data);
+    this.wss.emitActionData(process.env.WS_CHANNEL_BOOK, process.env.WS_UPDATED, res);
+    return res;
   }
 
   @Patch(':id')
@@ -58,7 +64,9 @@ export class BookController {
     description: 'This can only be done by the logged in user.'
   })
   async partial(@Param('id') id:number, @Body() data: PartialUpdateBookDTO): Promise<Book>{
-    return await this.bookService.update(id, data);
+    const res: Book = await this.bookService.update(id, data);
+    this.wss.emitActionData(process.env.WS_CHANNEL_BOOK, process.env.WS_UPDATED, res);
+    return res;
   }
 
   @Delete(':id')
@@ -72,7 +80,9 @@ export class BookController {
     description: 'This can only be done by the logged in user.'
   })
   async delete(@Param('id') id:number): Promise<Book> {
-    return await this.bookService.delete(id);
+    const res: Book = await this.bookService.delete(id);
+    this.wss.emitActionData(process.env.WS_CHANNEL_BOOK, process.env.WS_DELETED, res);
+    return res;
   }
 
   @Get()
@@ -86,7 +96,8 @@ export class BookController {
     description: 'This can only be done by the logged in user.'
   })
   async findAll(): Promise<Book[]>{
-    return await this.bookService.find();
+    const res: Book[] = await this.bookService.find();
+    return res;
   }
 
   @Get(':id')
@@ -100,6 +111,7 @@ export class BookController {
     description: 'This can only be done by the logged in user.'
   })
   async findOne(@Param('id') id:number): Promise<Book>{
-    return await this.bookService.findOne(id);
+    const res: Book = await this.bookService.findOne(id);
+    return res;
   }
 }

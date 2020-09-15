@@ -10,13 +10,15 @@ import {
 } from '@nestjs/swagger';
 import { Author } from './models/author.model';
 import { AuthJWT } from 'src/auth/decorators/auth.user.decorator';
+import { AppGateway } from 'src/app.gateway';
 
 @ApiTags('Author')
 @ApiBearerAuth()
 @Controller('api/author')
 export class AuthorController {
   constructor(
-        private readonly authorService:AuthorService
+        private readonly authorService:AuthorService,
+        private readonly wss: AppGateway
   ){}
 
   @Post()
@@ -30,7 +32,9 @@ export class AuthorController {
     description: 'This can only be done by the logged in user.'
   })
   async create(@Body() data: CreateAuthorDTO): Promise<Author>{
-    return await this.authorService.create(data);
+    const res: Author = await this.authorService.create(data);
+    this.wss.emitActionData(process.env.WS_CHANNEL_AUTHOR, process.env.WS_CREATED, res);
+    return res;
   }
 
   @Put(':id')
@@ -44,7 +48,9 @@ export class AuthorController {
     description: 'This can only be done by the logged in user.'
   })
   async update(@Param('id') id:number, @Body() data: UpdateAuthorDTO): Promise<Author>{
-    return await this.authorService.update(id, data);
+    const res: Author = await this.authorService.update(id, data);
+    this.wss.emitActionData(process.env.WS_CHANNEL_AUTHOR, process.env.WS_UPDATED, res);
+    return res;
   }
 
   @Patch(':id')
@@ -58,7 +64,9 @@ export class AuthorController {
     description: 'This can only be done by the logged in user.'
   })
   async partial(@Param('id') id:number, @Body() data: PartialUpdateAuthorDTO): Promise<Author>{
-    return await this.authorService.update(id, data);
+    const res: Author = await this.authorService.update(id, data);
+    this.wss.emitActionData(process.env.WS_CHANNEL_AUTHOR, process.env.WS_UPDATED, res);
+    return res;
   }
 
   @Delete(':id')
@@ -72,7 +80,9 @@ export class AuthorController {
     description: 'This can only be done by the logged in user.'
   })
   async delete(@Param('id') id:number): Promise<Author> {
-    return await this.authorService.delete(id);
+    const res:Author =  await this.authorService.delete(id);
+    this.wss.emitActionData(process.env.WS_CHANNEL_AUTHOR, process.env.WS_DELETED, res);
+    return res;
   }
 
   @Get()
