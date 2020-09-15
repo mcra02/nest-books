@@ -11,7 +11,7 @@ import { Server, Socket } from 'socket.io';
 export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
 
   @WebSocketServer()
-  wss;
+  wss: Server;
 
   private logger: Logger = new Logger('ApiGateway')
 
