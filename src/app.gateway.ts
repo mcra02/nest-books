@@ -6,8 +6,13 @@ import {
   WebSocketGateway, WebSocketServer
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
+import * as dotenv from 'dotenv';
 
-@WebSocketGateway(4001, { transport: ['websocket'] })
+dotenv.config();
+
+const portWs:number = parseInt(process.env.WS_PORT);
+
+@WebSocketGateway(portWs, { transport: ['websocket'] })
 export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
 
   @WebSocketServer()
