@@ -6,9 +6,28 @@ import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { AppGateway } from './app.gateway';
 import { ConfigModule } from '@nestjs/config';
+import { GraphQLModule } from '@nestjs/graphql';
 
 @Module({
-  imports: [TypeOrmModule.forRoot(), AuthorModule, BookModule, UserModule, AuthModule, ConfigModule.forRoot({ envFilePath: '.env' })],
+  imports: [
+    TypeOrmModule.forRoot(),
+    ConfigModule.forRoot({ envFilePath: '.env' }),
+    GraphQLModule.forRoot({
+      installSubscriptionHandlers: true,
+      autoSchemaFile: './src/Schema.graphql',
+      context: Request => {
+        const headers = Request.req.headers;
+        return {
+          ...Request,
+          headers
+        };
+      }
+    }),
+    AuthorModule,
+    BookModule,
+    UserModule,
+    AuthModule
+  ],
   controllers: [],
   providers: [AppGateway],
   exports: [AppGateway]

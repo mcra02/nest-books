@@ -4,6 +4,7 @@ import { Book } from './models/book.model';
 import {
   CreateBookDTO, PartialUpdateBookDTO, UpdateBookDTO
 } from './DTO/book.dto';
+import { CreateBookInput, UpdateBookInput } from './DTO/book.input';
 
 @Injectable()
 export class BookService {
@@ -19,7 +20,9 @@ export class BookService {
     }
   }
 
-  async findOne(id:number):Promise<Book> {
+  async findOne(
+    id:number
+  ):Promise<Book> {
     try {
       return await this._bookRepository.findOneBook(id);
 
@@ -28,7 +31,9 @@ export class BookService {
     }
   }
 
-  async create(data:CreateBookDTO): Promise<Book>{
+  async create(
+    data:CreateBookDTO|CreateBookInput
+  ): Promise<Book>{
     try {
       return await this._bookRepository.createBook(data);
     } catch (error) {
@@ -36,7 +41,10 @@ export class BookService {
     }
   }
 
-  async update(id:number, data:PartialUpdateBookDTO|UpdateBookDTO): Promise<Book>{
+  async update(
+    id:number,
+    data:PartialUpdateBookDTO|UpdateBookDTO|UpdateBookInput
+  ): Promise<Book>{
     try {
       await this._bookRepository.updateBook(id, data);
       return await this.findOne(id);
@@ -45,7 +53,9 @@ export class BookService {
     }
   }
 
-  async delete(id:number): Promise<Book> {
+  async delete(
+    id:number
+  ): Promise<Book> {
     try {
       const Book = await this.findOne(id);
       await this._bookRepository.deleteBook(id);

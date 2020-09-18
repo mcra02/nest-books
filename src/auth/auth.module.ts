@@ -6,6 +6,7 @@ import * as dotenv from 'dotenv';
 import { UserModule } from 'src/user/user.module';
 import { PassportModule } from '@nestjs/passport';
 import { JwtStrategy } from './jwt.strategy';
+import { AuthResolver } from './auth.resolver';
 
 dotenv.config();
 
@@ -18,7 +19,7 @@ dotenv.config();
       signOptions: { expiresIn: '2d' }
     })
   ],
-  providers: [AuthService, JwtStrategy],
+  providers: [AuthService, JwtStrategy, AuthResolver],
   controllers: [AuthController],
   exports: [JwtStrategy, PassportModule]
 })
