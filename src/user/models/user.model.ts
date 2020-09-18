@@ -4,9 +4,14 @@ import {
 import { ApiResponseProperty } from '@nestjs/swagger';
 import { Length, IsNotEmpty } from 'class-validator';
 import { IsUniq } from '@join-com/typeorm-class-validator-is-uniq';
+import {
+  Field, ID, ObjectType
+} from '@nestjs/graphql';
 
 @Entity()
+@ObjectType()
 export class User {
+  @Field(() => ID, { nullable: false })
   @PrimaryColumn('varchar', {
     nullable: false,
     length: 10
@@ -19,6 +24,7 @@ export class User {
   @IsNotEmpty({ message: 'The username is required' })
   username: string;
 
+  @Field({ nullable: false })
   @Column('varchar', {
     nullable: false,
     length: 100

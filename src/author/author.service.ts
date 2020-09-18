@@ -4,6 +4,7 @@ import { Author } from './models/author.model';
 import {
   CreateAuthorDTO, UpdateAuthorDTO, PartialUpdateAuthorDTO
 } from './DTO/author.dto';
+import { CreateAuthorInput, UpdateAuthorInput } from './DTO/author.input';
 
 @Injectable()
 export class AuthorService {
@@ -19,7 +20,9 @@ export class AuthorService {
     }
   }
 
-  async findOne(id:number):Promise<Author> {
+  async findOne(
+    id:number
+  ):Promise<Author> {
     try {
       return await this._authorRepository.findOneAuthor(id);
     } catch (error) {
@@ -27,7 +30,9 @@ export class AuthorService {
     }
   }
 
-  async create(data:CreateAuthorDTO): Promise<Author>{
+  async create(
+    data:CreateAuthorDTO|CreateAuthorInput
+  ): Promise<Author>{
     try {
       return await this._authorRepository.createAuthor(data);
     } catch (error) {
@@ -35,7 +40,10 @@ export class AuthorService {
     }
   }
 
-  async update(id:number, data:PartialUpdateAuthorDTO|UpdateAuthorDTO): Promise<Author>{
+  async update(
+    id:number,
+    data:PartialUpdateAuthorDTO|UpdateAuthorDTO|UpdateAuthorInput
+  ): Promise<Author>{
     try {
       await this._authorRepository.updateAuthor(id, data);
       return await this.findOne(id);
@@ -44,7 +52,9 @@ export class AuthorService {
     }
   }
 
-  async delete(id:number): Promise<Author> {
+  async delete(
+    id:number
+  ): Promise<Author> {
     try {
       const author = await this.findOne(id);
       await this._authorRepository.deleteAuthor(id);

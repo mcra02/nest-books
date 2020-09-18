@@ -10,15 +10,49 @@ type Book {
   quantity: Int!
 }
 
+type Author {
+  id: ID!
+  name: String!
+  country: String!
+}
+
+type User {
+  username: ID!
+  email: String!
+}
+
+type SessionPayload {
+  user: User!
+  token: String!
+}
+
 type Query {
+  allAuthors: [Author!]!
+  oneAuthor(id: ID!): [Author!]!
   allBooks: [Book!]!
   oneBook(id: ID!): [Book!]!
+  me: SessionPayload!
 }
 
 type Mutation {
+  createAuthor(data: CreateAuthorInput!): Author!
+  updateAuthor(id: ID!, data: UpdateAuthorInput!): Author!
+  deleteAuthor(id: ID!): Author!
   createBook(data: CreateBookInput!): Book!
   updateBook(id: ID!, data: UpdateBookInput!): Book!
   deleteBook(id: ID!): Book!
+  signUp(data: SignUpInput!): SessionPayload!
+  signIn(data: SignInInput!): SessionPayload!
+}
+
+input CreateAuthorInput {
+  name: String!
+  country: String!
+}
+
+input UpdateAuthorInput {
+  name: String
+  country: String
 }
 
 input CreateBookInput {
@@ -35,4 +69,16 @@ input UpdateBookInput {
   price: Float
   quantity: Int
   authorId: ID
+}
+
+input SignUpInput {
+  username: String!
+  email: String!
+  password: String!
+  passwordConfirmation: String!
+}
+
+input SignInInput {
+  username: String!
+  password: String!
 }

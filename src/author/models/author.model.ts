@@ -4,14 +4,20 @@ import {
 import { Length, IsNotEmpty } from 'class-validator';
 import { ApiResponseProperty } from '@nestjs/swagger';
 import { Book } from 'src/book/models/book.model';
+import {
+  Field, ID, ObjectType
+} from '@nestjs/graphql';
 
 @Entity()
+@ObjectType()
 export class Author {
 
+    @Field(() => ID, { nullable: false })
     @PrimaryGeneratedColumn()
     @ApiResponseProperty({ type: Number })
     id: number
 
+    @Field({ nullable: false })
     @Column('varchar', {
       nullable: false,
       length: 12
@@ -21,6 +27,7 @@ export class Author {
     @IsNotEmpty({ message: 'The name is required' })
     name: string
 
+    @Field({ nullable: false })
     @Column('varchar', {
       nullable: false,
       length: 50
@@ -30,6 +37,7 @@ export class Author {
     @IsNotEmpty({ message: 'The country is required' })
     country: string
 
+    // @Field(() => Book,{ nullable: false })
     @OneToMany(() => Book, book => book.author)
     // @ApiResponseProperty({ type: () =>  [Book] })
     books: Book[]
