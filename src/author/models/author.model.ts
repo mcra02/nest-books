@@ -42,3 +42,13 @@ export class Author {
     // @ApiResponseProperty({ type: () =>  [Book] })
     books: Book[]
 }
+
+
+@ObjectType()
+export class AuthorSubscription {
+  @Field({ nullable: false })
+  action: string
+
+  @Field(() => Book, { nullable: false })
+  data: Author
+}

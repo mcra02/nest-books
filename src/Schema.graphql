@@ -10,10 +10,20 @@ type Book {
   quantity: Int!
 }
 
+type BookSubscription {
+  action: String!
+  data: Book!
+}
+
 type Author {
   id: ID!
   name: String!
   country: String!
+}
+
+type AuthorSubscription {
+  action: String!
+  data: Book!
 }
 
 type User {
@@ -81,4 +91,9 @@ input SignUpInput {
 input SignInInput {
   username: String!
   password: String!
+}
+
+type Subscription {
+  authorPubSub: AuthorSubscription!
+  bookPubSub: BookSubscription!
 }

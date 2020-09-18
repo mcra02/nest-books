@@ -51,3 +51,12 @@ export class Book {
     // @ApiResponseProperty({ type: () => Author })
     author: Author
 }
+
+@ObjectType()
+export class BookSubscription {
+  @Field({ nullable: false })
+  action: string
+
+  @Field(() => Book, { nullable: false })
+  data: Book
+}
