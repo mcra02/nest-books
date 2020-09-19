@@ -1,75 +1,125 @@
 <p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
-</p>
+    <img src="https://miro.medium.com/max/400/1*nP2C50GK4_-ly_R_mq3juQ.png" width="120" alt="GraphQl" />
+    <img src="https://seeklogo.com/images/N/nestjs-logo-09342F76C0-seeklogo.com.png" width="120" alt="NestJs" />
+    <img src="https://darwindigital.com/wp-content/uploads/2018/02/RESTful-API-Development-Switzerland.png" width="120" alt="NestJs" />
+    </p>
 
-[travis-image]: https://api.travis-ci.org/nestjs/nest.svg?branch=master
-[travis-url]: https://travis-ci.org/nestjs/nest
-[linux-image]: https://img.shields.io/travis/nestjs/nest/master.svg?label=linux
-[linux-url]: https://travis-ci.org/nestjs/nest
-  
-  <p align="center">A progressive <a href="http://nodejs.org" target="blank">Node.js</a> framework for building efficient and scalable server-side applications, heavily inspired by <a href="https://angular.io" target="blank">Angular</a>.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore"><img src="https://img.shields.io/npm/dm/@nestjs/core.svg" alt="NPM Downloads" /></a>
-<a href="https://travis-ci.org/nestjs/nest"><img src="https://api.travis-ci.org/nestjs/nest.svg?branch=master" alt="Travis" /></a>
-<a href="https://travis-ci.org/nestjs/nest"><img src="https://img.shields.io/travis/nestjs/nest/master.svg?label=linux" alt="Linux" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#5" alt="Coverage" /></a>
-<a href="https://gitter.im/nestjs/nestjs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=body_badge"><img src="https://badges.gitter.im/nestjs/nestjs.svg" alt="Gitter" /></a>
-<a href="https://opencollective.com/nest#backer"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec"><img src="https://img.shields.io/badge/Donate-PayPal-dc3d53.svg"/></a>
-  <a href="https://twitter.com/nestframework"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+<h1 align="center">
+  API REST AND GRAPHQL BOOKS
+</h1>
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+<p ALIGN="justify">
+Simple example implementing a rest api with Websockets and a Graphql service.
+</p>
+
+This project has using the following features:
+
+- **NodeJs** 12.x+
+- **Nest** 7.0
+- **GraphQl**
+- **JWT**
+- **SOCKET IO**
 
 ## Installation
 
-```bash
-$ npm install
-```
+### Development
 
-## Running the app
+1. Clone Repository
 
-```bash
-# development
-$ npm run start
+   ```bash
+   $ git clone https://github.com/mcra02/nest-books.git
+   ```
 
-# watch mode
-$ npm run start:dev
+2. Check the .env file and change variables if necessary:
 
-# production mode
-$ npm run start:prod
-```
+- HTTP_PORT=[4000]
+- WS_PORT=[4001]
+- JWT_KEY=[STRING_KEY]
 
-## Test
+  2.1. Optionals
 
-```bash
-# unit tests
-$ npm run test
+  - WS_CHANNEL_BOOK=BOOK
+  - WS_CHANNEL_AUTHOR=AUTHOR
+  - WS_CHANNEL_USER=USER
 
-# e2e tests
-$ npm run test:e2e
+  - WS_CREATED=CREATED
+  - WS_UPDATE=UPDATED
+  - WS_DELETED=DELETED
 
-# test coverage
-$ npm run test:cov
-```
+3. Check the ormconfig.json file and change the credentials of the connection url to mysql if necessary:
 
-## Support
+   - [HOST_DATABASE]
+   - [PORT_DATABASE]
+   - [USER_DATABASE]
+   - [PASS_DATABASE]
+   - [NAME_DATABASE]
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+   You should create a database named **BOOKS**.
 
-## Stay in touch
+4. Install dependencies
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+   ```bash
+   $ yarn install
+   ```
 
-## License
+5. Run development
 
-  Nest is [MIT licensed](LICENSE).
+   ```bash
+   $ yarn start:dev
+   ```
+
+6. Open GRAPHQL http://localhost:[PORT]/graphql
+
+7. Open REST API http://localhost:[PORT]/api/swagger
+
+### Production
+
+1. Clone Repository
+
+   ```bash
+   $ git clone clone https://github.com/mcra02/nest-books.git
+   ```
+
+2. Check the .env file and change variables if necessary:
+
+- HTTP_PORT=[4000]
+- WS_PORT=[4001]
+- JWT_KEY=[STRING_KEY]
+
+  2.1. Optionals
+
+  - WS_CHANNEL_BOOK=BOOK
+  - WS_CHANNEL_AUTHOR=AUTHOR
+  - WS_CHANNEL_USER=USER
+
+  - WS_CREATED=CREATED
+  - WS_UPDATE=UPDATED
+  - WS_DELETED=DELETED
+
+3. Check the ormconfig.json file and change the credentials of the connection url to mysql if necessary:
+
+   - [HOST_DATABASE]
+   - [PORT_DATABASE]
+   - [USER_DATABASE]
+   - [PASS_DATABASE]
+   - [NAME_DATABASE]
+
+   You should create a database named **BOOKS**.
+
+4. Build Dockerfile
+
+   ```bash
+   $ docker build -t "backend-books" .
+   ```
+
+5. Start project
+
+   ```bash
+   $ docker run -itd --name backend-osffni -p 80:[PORT] backend-books
+   ```
+
+# Authors
+
+#### [Michael C Rodrigo Apaza ](https://www.facebook.com/MaicolCRodrigo)
