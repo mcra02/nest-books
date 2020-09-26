@@ -49,6 +49,6 @@ export class AuthorSubscription {
   @Field({ nullable: false })
   action: string
 
-  @Field(() => Book, { nullable: false })
+  @Field(() => Author, { nullable: false })
   data: Author
 }

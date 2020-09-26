@@ -23,7 +23,7 @@ type Author {
 
 type AuthorSubscription {
   action: String!
-  data: Book!
+  data: Author!
 }
 
 type User {

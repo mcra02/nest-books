@@ -16,11 +16,7 @@ import { GraphQLModule } from '@nestjs/graphql';
       installSubscriptionHandlers: true,
       autoSchemaFile: './src/Schema.graphql',
       context: Request => {
-        const headers = Request.req.headers;
-        return {
-          ...Request,
-          headers
-        };
+        return { ...Request };
       }
     }),
     AuthorModule,

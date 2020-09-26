@@ -40,7 +40,7 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
       action,
       data
     };
-
+    console.log(payload);
     this.wss.emit(type, payload);
   }
 
