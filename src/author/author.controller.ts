@@ -1,5 +1,5 @@
 import {
-  Controller, Body, Post, Put, Param, Get, Patch, Delete, UseGuards
+  Controller, Body, Post, Put, Param, Get, Patch, Delete
 } from '@nestjs/common';
 import { AuthorService } from './author.service';
 import {
@@ -9,7 +9,7 @@ import {
   ApiTags,  ApiCreatedResponse, ApiAcceptedResponse, ApiBearerAuth, ApiOperation
 } from '@nestjs/swagger';
 import { Author } from './models/author.model';
-import { AuthJWT } from 'src/auth/decorators/auth.user.decorator';
+// import { AuthJWT } from 'src/auth/decorators/auth.user.decorator';
 import { AppGateway } from 'src/app.gateway';
 
 @ApiTags('Author')
@@ -22,7 +22,7 @@ export class AuthorController {
   ){}
 
   @Post()
-  @UseGuards(AuthJWT)
+  // @UseGuards(AuthJWT)
   @ApiCreatedResponse({
     description: 'The record has successfully created.',
     type: Author
@@ -38,7 +38,7 @@ export class AuthorController {
   }
 
   @Put(':id')
-  @UseGuards(AuthJWT)
+  // @UseGuards(AuthJWT)
   @ApiAcceptedResponse({
     description: 'The record has successfully updated.',
     type: Author
@@ -54,7 +54,7 @@ export class AuthorController {
   }
 
   @Patch(':id')
-  @UseGuards(AuthJWT)
+  // @UseGuards(AuthJWT)
   @ApiAcceptedResponse({
     description: 'The record has successfully updated.',
     type: Author
@@ -70,7 +70,7 @@ export class AuthorController {
   }
 
   @Delete(':id')
-  @UseGuards(AuthJWT)
+  // @UseGuards(AuthJWT)
   @ApiAcceptedResponse({
     description: 'The record has successfully updated.',
     type: Author
@@ -86,7 +86,7 @@ export class AuthorController {
   }
 
   @Get()
-  @UseGuards(AuthJWT)
+  // @UseGuards(AuthJWT)
   @ApiAcceptedResponse({
     description: 'The record has successfully find all.',
     type: [Author]
@@ -100,7 +100,7 @@ export class AuthorController {
   }
 
   @Get(':id')
-  @UseGuards(AuthJWT)
+  // @UseGuards(AuthJWT)
   @ApiAcceptedResponse({
     description: 'The record has successfully find all.',
     type: Author

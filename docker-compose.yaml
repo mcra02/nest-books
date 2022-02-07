@@ -1,0 +1,22 @@
+version: '3.5'
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8000:80
+    volumes:
+      - ./:/app/
+      - ./.volumes/filestorage:/usr/filestorage
+    env_file:
+      - .env
+  mysql:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 'admin'
+      MYSQL_DATABASE: 'book'
+      MYSQL_USER: 'admin'
+      MYSQL_PASSWORD: 'admin'
